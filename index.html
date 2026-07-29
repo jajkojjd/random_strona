@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Randomowa Strona</title>
+
+<style>
+body{
+background:#202124;
+color:white;
+font-family:Arial;
+text-align:center;
+padding-top:60px;
+}
+
+button{
+padding:15px;
+font-size:20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+#tekst{
+margin-top:30px;
+font-size:30px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>😂 Najbardziej randomowa strona 😂</h1>
+
+<p>Siema 👋</p>
+
+<p>To najbardziej randomowa strona internetu.</p>
+
+<div id="tekst">
+Kliknij przycisk 👇
+</div>
+
+<br>
+
+<button onclick="losuj()">
+🎲 Losuj
+</button>
+
+<script>
+
+const teksty=[
+
+"🐸 Żaba zatwierdziła wizytę",
+
+"🍕 Idź zjeść pizzę",
+
+"💀 Windows właśnie instaluje aktualizację",
+
+"🟩 Creeper stoi za Tobą",
+
+"🧠 Masz IQ +1",
+
+"🥔 Ziemniak jest z Ciebie dumny",
+
+"🐱 Kot powiedział miau",
+
+"🚀 Lecisz na Marsa",
+
+"👀 FBI patrzy",
+
+"🎮 Idź pograć w Minecrafta"
+
+];
+
+function losuj(){
+
+let x=Math.floor(Math.random()*teksty.length);
+
+document.getElementById("tekst").innerHTML=teksty[x];
+
+}
+
+</script>
+
+</body>
+
+</html>
