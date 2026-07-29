@@ -1,24 +1,269 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>Moja pierwsza strona</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strona Karola 😎</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#121212;
+    color:white;
+    text-align:center;
+    transition:0.5s;
+    overflow-x:hidden;
+}
+
+header{
+    background:#1f1f1f;
+    padding:20px;
+    box-shadow:0 0 20px #000;
+}
+
+button{
+    padding:12px 18px;
+    margin:8px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+#dvd{
+    position:fixed;
+    left:100px;
+    top:100px;
+    background:red;
+    color:white;
+    padding:10px;
+    font-weight:bold;
+    border-radius:8px;
+    user-select:none;
+}
+
+#troll{
+    display:none;
+    width:320px;
+    max-width:90%;
+    margin:20px auto;
+    border-radius:15px;
+    box-shadow:0 0 20px black;
+}
+
+.jajko{
+    position:fixed;
+    font-size:35px;
+    pointer-events:none;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-80px);
+}
+100%{
+transform:translateY(110vh);
+}
+}
+
+#losowy{
+    font-size:22px;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+#clock{
+    font-size:28px;
+    margin-top:10px;
+}
+
+footer{
+    margin-top:50px;
+    color:#bbb;
+    padding-bottom:30px;
+}
+</style>
 </head>
-<body style="text-align:center;font-family:Arial;margin-top:100px;">
 
-<h1>Siema! 👋</h1>
+<body>
 
-<p>Jestem Karol. To moja pierwsza strona internetowa (nie z ESP32 i localhosta 😎).</p>
+<header>
 
-<h2>Wejścia:</h2>
-<p id="licznik">Ładowanie...</p>
+<h1>👋 Siema!</h1>
 
+<h2>Jestem Karol</h2>
+
+<p>To moja pierwsza strona internetowa 😎<br>
+(nie z ESP32 i localhosta 😂)</p>
+
+<div id="clock">00:00:00</div>
+
+</header>
+
+<br>
+
+<button onclick="changeColor()">🌈 Losowy kolor</button>
+
+<button onclick="eggRain()">🥚 Deszcz jajek</button>
+
+<button onclick="showTroll()">😂 Trollface</button>
+
+<button onclick="randomText()">🎲 Losowy tekst</button>
+
+<button onclick="playSound()">🔊 Puść dźwięk</button>
+
+<p id="losowy"></p>
+
+<img id="troll" src="trollface.png">
+
+<div id="dvd">DVD</div>
+
+<footer>
+Made by Karol 😎
+</footer>
 <script>
-fetch("https://api.countapi.xyz/hit/jajkojjd/randomowa_strona")
-.then(res => res.json())
-.then(data => {
-    document.getElementById("licznik").innerText = data.value;
-});
+
+// ===== ZEGAR =====
+function updateClock(){
+    const d = new Date();
+    document.getElementById("clock").textContent =
+        d.toLocaleTimeString("pl-PL");
+}
+setInterval(updateClock,1000);
+updateClock();
+
+
+// ===== LOSOWY KOLOR =====
+function changeColor(){
+    document.body.style.background =
+        "#" + Math.floor(Math.random()*16777215).toString(16);
+}
+
+
+// ===== TROLLFACE =====
+function showTroll(){
+
+    const img = document.getElementById("troll");
+
+    if(img.style.display=="block"){
+        img.style.display="none";
+    }else{
+        img.style.display="block";
+    }
+
+}
+
+
+// ===== LOSOWE TEKSTY =====
+const texts=[
+
+"🥚 Jajko wykryte!",
+"😂 Nie klikaj wszystkiego!",
+"😎 GitHub Pages > localhost",
+"🚀 Ta strona działa!",
+"🔥 Ale kozacka strona!",
+"💀 DVD dalej lata...",
+"😆 Dzięki za odwiedziny!",
+"🎉 Miłego dnia!"
+
+];
+
+function randomText(){
+
+document.getElementById("losowy").innerHTML=
+texts[Math.floor(Math.random()*texts.length)];
+
+}
+
+
+// ===== DESZCZ JAJEK =====
+function eggRain(){
+
+for(let i=0;i<60;i++){
+
+let egg=document.createElement("div");
+
+egg.className="jajko";
+
+egg.innerHTML="🥚";
+
+egg.style.left=Math.random()*window.innerWidth+"px";
+
+egg.style.animationDuration=
+(2+Math.random()*3)+"s";
+
+document.body.appendChild(egg);
+
+setTimeout(()=>{
+egg.remove();
+},5000);
+
+}
+
+}
+
+
+// ===== LOSOWY DŹWIĘK =====
+// Utwórz folder sounds i dodaj:
+// sounds/dzwiek1.mp3
+// sounds/dzwiek2.mp3
+// sounds/dzwiek3.mp3
+
+const sounds=[
+"sounds/dzwiek1.mp3",
+"sounds/dzwiek2.mp3",
+"sounds/dzwiek3.mp3"
+];
+
+function playSound(){
+
+const audio=new Audio(
+sounds[Math.floor(Math.random()*sounds.length)]
+);
+
+audio.play();
+
+}
+
+
+// ===== DVD =====
+let x=100;
+let y=100;
+
+let dx=3;
+let dy=3;
+
+const dvd=document.getElementById("dvd");
+
+setInterval(()=>{
+
+x+=dx;
+y+=dy;
+
+if(x<=0 || x>=window.innerWidth-70){
+dx=-dx;
+dvd.style.background=
+"#"+Math.floor(Math.random()*16777215).toString(16);
+}
+
+if(y<=0 || y>=window.innerHeight-40){
+dy=-dy;
+dvd.style.background=
+"#"+Math.floor(Math.random()*16777215).toString(16);
+}
+
+dvd.style.left=x+"px";
+dvd.style.top=y+"px";
+
+},20);
+
 </script>
 
 </body>
