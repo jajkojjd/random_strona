@@ -3,93 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Strona Karola 😎</title>
 
 <style>
+
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#121212;
-    color:white;
-    text-align:center;
-    transition:0.5s;
-    overflow-x:hidden;
+margin:0;
+background:#111;
+color:white;
+font-family:Arial,Helvetica,sans-serif;
+text-align:center;
+overflow-x:hidden;
+transition:.4s;
 }
 
 header{
-    background:#1f1f1f;
-    padding:20px;
-    box-shadow:0 0 20px #000;
+background:#1b1b1b;
+padding:20px;
+box-shadow:0 0 20px black;
 }
 
 button{
-    padding:12px 18px;
-    margin:8px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:18px;
-    transition:.2s;
+
+padding:12px 18px;
+margin:8px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:17px;
+transition:.2s;
+
 }
 
 button:hover{
-    transform:scale(1.08);
-}
 
-#dvd{
-    position:fixed;
-    left:100px;
-    top:100px;
-    background:red;
-    color:white;
-    padding:10px;
-    font-weight:bold;
-    border-radius:8px;
-    user-select:none;
-}
+transform:scale(1.08);
 
-#troll{
-    display:none;
-    width:320px;
-    max-width:90%;
-    margin:20px auto;
-    border-radius:15px;
-    box-shadow:0 0 20px black;
-}
-
-.jajko{
-    position:fixed;
-    font-size:35px;
-    pointer-events:none;
-    animation:fall linear forwards;
-}
-
-@keyframes fall{
-0%{
-transform:translateY(-80px);
-}
-100%{
-transform:translateY(110vh);
-}
-}
-
-#losowy{
-    font-size:22px;
-    font-weight:bold;
-    margin-top:20px;
 }
 
 #clock{
-    font-size:28px;
-    margin-top:10px;
+
+font-size:30px;
+margin-top:15px;
+
+}
+
+#random{
+
+font-size:22px;
+margin-top:20px;
+font-weight:bold;
+
+}
+
+#troll{
+
+display:none;
+width:320px;
+max-width:90%;
+margin-top:20px;
+border-radius:15px;
+
+}
+
+#dvd{
+
+position:fixed;
+left:100px;
+top:100px;
+
+background:red;
+color:white;
+
+padding:10px;
+
+font-weight:bold;
+
+border-radius:8px;
+
+user-select:none;
+
+}
+
+.jajko{
+
+position:fixed;
+pointer-events:none;
+
+animation:fall linear forwards;
+
+z-index:999;
+
+}
+
+@keyframes fall{
+
+0%{
+
+transform:translateY(-150px);
+
+}
+
+100%{
+
+transform:translateY(calc(100vh + 200px));
+
+}
+
 }
 
 footer{
-    margin-top:50px;
-    color:#bbb;
-    padding-bottom:30px;
+
+margin-top:60px;
+padding:30px;
+color:#999;
+
 }
+
 </style>
+
 </head>
 
 <body>
@@ -100,10 +133,13 @@ footer{
 
 <h2>Jestem Karol</h2>
 
-<p>To moja pierwsza strona internetowa 😎<br>
-(nie z ESP32 i localhosta 😂)</p>
+<p>
+To moja pierwsza strona internetowa 😎
+<br>
+(nie z ESP32 i localhosta 😂)
+</p>
 
-<div id="clock">00:00:00</div>
+<div id="clock"></div>
 
 </header>
 
@@ -119,76 +155,107 @@ footer{
 
 <button onclick="playSound()">🔊 Puść dźwięk</button>
 
-<p id="losowy"></p>
+<button onclick="reportBug()">🐞 Zgłoś błąd</button>
 
-<img id="troll" src="trollface.png">
+<p id="random"></p>
+
+<img
+id="troll"
+src="trollface.png"
+alt="Trollface">
 
 <div id="dvd">DVD</div>
 
 <footer>
+
 Made by Karol 😎
+
 </footer>
 <script>
 
 // ===== ZEGAR =====
+
 function updateClock(){
-    const d = new Date();
-    document.getElementById("clock").textContent =
-        d.toLocaleTimeString("pl-PL");
+
+const d=new Date();
+
+document.getElementById("clock").innerHTML=
+d.toLocaleTimeString("pl-PL");
+
 }
+
 setInterval(updateClock,1000);
+
 updateClock();
 
 
 // ===== LOSOWY KOLOR =====
+
 function changeColor(){
-    document.body.style.background =
-        "#" + Math.floor(Math.random()*16777215).toString(16);
+
+document.body.style.background=
+"#"+Math.floor(Math.random()*16777215).toString(16);
+
 }
 
 
 // ===== TROLLFACE =====
+
 function showTroll(){
 
-    const img = document.getElementById("troll");
+const img=document.getElementById("troll");
 
-    if(img.style.display=="block"){
-        img.style.display="none";
-    }else{
-        img.style.display="block";
-    }
+if(img.style.display==="block"){
+
+img.style.display="none";
+
+}else{
+
+img.style.display="block";
+
+}
 
 }
 
 
 // ===== LOSOWE TEKSTY =====
+
 const texts=[
 
 "🥚 Jajko wykryte!",
+
 "😂 Nie klikaj wszystkiego!",
+
 "😎 GitHub Pages > localhost",
+
 "🚀 Ta strona działa!",
+
 "🔥 Ale kozacka strona!",
+
 "💀 DVD dalej lata...",
+
 "😆 Dzięki za odwiedziny!",
+
 "🎉 Miłego dnia!"
 
 ];
 
 function randomText(){
 
-document.getElementById("losowy").innerHTML=
+document.getElementById("random").innerHTML=
+
 texts[Math.floor(Math.random()*texts.length)];
 
 }
 
 
 // ===== DESZCZ JAJEK =====
+
 function eggRain(){
 
-for(let i=0;i<60;i++){
+for(let i=0;i<180;i++){
 
-let egg=document.createElement("div");
+const egg=document.createElement("div");
 
 egg.className="jajko";
 
@@ -196,25 +263,26 @@ egg.innerHTML="🥚";
 
 egg.style.left=Math.random()*window.innerWidth+"px";
 
-egg.style.animationDuration=
-(2+Math.random()*3)+"s";
+egg.style.top=(-Math.random()*window.innerHeight)+"px";
+
+egg.style.opacity=0.3+Math.random()*0.7;
+
+egg.style.fontSize=(18+Math.random()*24)+"px";
+
+egg.style.animationDuration=(3+Math.random()*4)+"s";
 
 document.body.appendChild(egg);
 
 setTimeout(()=>{
+
 egg.remove();
-},5000);
+
+},7000);
 
 }
 
 }
-
-
-// ===== LOSOWY DŹWIĘK =====
-// Utwórz folder sounds i dodaj:
-// sounds/dzwiek1.mp3
-// sounds/dzwiek2.mp3
-// sounds/dzwiek3.mp3
+// ===== DŹWIĘKI =====
 
 const sounds=[
 "sounds/dzwiek1.mp3",
@@ -222,18 +290,37 @@ const sounds=[
 "sounds/dzwiek3.mp3"
 ];
 
+// Wczytaj dźwięki po otwarciu strony
+const loadedSounds = sounds.map(src => {
+    const a = new Audio(src);
+    a.preload = "auto";
+    return a;
+});
+
 function playSound(){
 
-const audio=new Audio(
-sounds[Math.floor(Math.random()*sounds.length)]
-);
+const audio=loadedSounds[
+Math.floor(Math.random()*loadedSounds.length)
+];
 
+audio.currentTime=0;
 audio.play();
 
 }
 
 
+// ===== PRZYCISK ZGŁOŚ BŁĄD =====
+
+function reportBug(){
+
+window.location.href=
+"mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
+
+}
+
+
 // ===== DVD =====
+
 let x=100;
 let y=100;
 
@@ -247,16 +334,22 @@ setInterval(()=>{
 x+=dx;
 y+=dy;
 
-if(x<=0 || x>=window.innerWidth-70){
+if(x<=0||x>=window.innerWidth-70){
+
 dx=-dx;
+
 dvd.style.background=
 "#"+Math.floor(Math.random()*16777215).toString(16);
+
 }
 
-if(y<=0 || y>=window.innerHeight-40){
+if(y<=0||y>=window.innerHeight-40){
+
 dy=-dy;
+
 dvd.style.background=
 "#"+Math.floor(Math.random()*16777215).toString(16);
+
 }
 
 dvd.style.left=x+"px";
