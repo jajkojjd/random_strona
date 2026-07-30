@@ -1,5 +1,4 @@
-```html
-<!DOCTYPE html>
+
 <html lang="pl">
 
 <head>
@@ -9,14 +8,14 @@
 
 <title>Strona Karola 😎</title>
 
-<!-- FAVICON -->
-<link rel="icon" type="image/x-icon" href="./favicon.ico?v=2">
-<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?v=2">
+<link rel="icon" href="favicon.ico">
 
 <style>
 
+body{
 *{
 margin:0;
+background:#111;
 padding:0;
 box-sizing:border-box;
 }
@@ -31,12 +30,15 @@ font-family:Arial,Helvetica,sans-serif;
 text-align:center;
 
 overflow-x:hidden;
+transition:.4s;
 
 transition:background .4s;
 
 }
 
 header{
+background:#1b1b1b;
+padding:20px;
 
 background:#1c1c1c;
 
@@ -95,23 +97,29 @@ border:none;
 border-radius:12px;
 
 cursor:pointer;
+font-size:17px;
 
 transition:.2s;
 
 }
-
-button:hover{
-
-transform:scale(1.08);
+@@ -42,53 +103,60 @@
 
 }
 
+#clock{
+
+font-size:30px;
+margin-top:15px;
 #random{
 
+}
 margin-top:25px;
 
+#random{
 font-size:25px;
 
+font-size:22px;
+margin-top:20px;
 font-weight:bold;
 
 }
@@ -119,12 +127,15 @@ font-weight:bold;
 #troll{
 
 display:none;
+width:320px;
 
 margin:25px auto;
 
 width:330px;
 
 max-width:90%;
+margin-top:20px;
+border-radius:15px;
 
 border-radius:20px;
 
@@ -146,8 +157,10 @@ color:white;
 
 padding:10px;
 
+font-weight:bold;
 border-radius:10px;
 
+border-radius:8px;
 font-weight:bold;
 
 user-select:none;
@@ -163,29 +176,11 @@ position:fixed;
 pointer-events:none;
 
 animation:fall linear forwards;
-
-z-index:999;
-
-}
-
-@keyframes fall{
-
-0%{
-
-transform:translateY(-150px);
-
-}
-
-100%{
-
-transform:translateY(calc(100vh + 200px));
-
-}
-
-}
+@@ -115,8 +183,10 @@
 
 footer{
 
+margin-top:60px;
 margin-top:70px;
 
 padding:30px;
@@ -193,110 +188,94 @@ padding:30px;
 color:#999;
 
 }
-
-</style>
-
-</head>
-
-<body>
-
-<header>
+@@ -131,19 +201,18 @@
 
 <h1>👋 Siema!</h1>
 
+<h2>Jestem Karol</h2>
 <h2>Jestem Karol 😎</h2>
 
 <p>
+To moja pierwsza strona internetowa 😎
+<br>
+(nie z ESP32 i localhosta 😂)
 To moja pierwsza strona internetowa!<br>
 (Nie z ESP32 i localhosta 😂)
 </p>
 
+<div id="clock"></div>
 <div id="clock">00:00:00</div>
 
 </header>
 
+<br>
 <div class="buttons">
 
 <button onclick="changeColor()">🌈 Losowy kolor</button>
 
-<button onclick="eggRain()">🥚 Deszcz jajek</button>
-
-<button onclick="showTroll()">😂 Trollface</button>
-
-<button onclick="randomText()">🎲 Losowy tekst</button>
-
-<button onclick="playSound()">🔊 Puść dźwięk</button>
+@@ -157,12 +226,11 @@ <h2>Jestem Karol</h2>
 
 <button onclick="reportBug()">🐞 Zgłoś błąd</button>
-
-<!-- ===== POBIERANIE PLUGINÓW ===== -->
-
-<button onclick="downloadPlugin('DiscordPlugin-1.19.4.jar')">
-📥 Pobierz DiscordPlugin
-</button>
-
-<button onclick="downloadPlugin('ZeusPlugin-1.19plus-popular.jar')">
-📥 Pobierz ZeusPlugin
-</button>
 
 </div>
 
 <p id="random"></p>
 
+<img
+id="troll"
+src="trollface.png"
+alt="Trollface">
 <img id="troll" src="trollface.png" alt="Trollface">
 
 <div id="dvd">DVD</div>
 
-<footer>
-
+@@ -171,56 +239,61 @@ <h2>Jestem Karol</h2>
 Made by Karol 😎
 
 </footer>
-
 <script>
 
 // ===== ZEGAR =====
+<script>
+    // ===== ZEGAR =====
 
+function updateClock(){
 function updateClock() {
-
     const now = new Date();
-
     document.getElementById("clock").textContent =
         now.toLocaleTimeString("pl-PL");
-
 }
 
+const d=new Date();
 setInterval(updateClock, 1000);
-
 updateClock();
 
+document.getElementById("clock").innerHTML=
+d.toLocaleTimeString("pl-PL");
 
+}
 // ===== LICZNIK ODWIEDZIN =====
 
+setInterval(updateClock,1000);
 let visits = Number(localStorage.getItem("visits") || 0);
-
 visits++;
-
 localStorage.setItem("visits", visits);
 
+updateClock();
 const visitText = document.createElement("p");
-
-visitText.innerHTML =
-    "👀 Odwiedziłeś tę stronę <b>" +
-    visits +
-    "</b> razy na tym urządzeniu.";
-
+visitText.innerHTML = "👀 Odwiedziłeś tę stronę <b>" + visits + "</b> razy na tym urządzeniu.";
 document.querySelector("header").appendChild(visitText);
 
 
 // ===== LOSOWY KOLOR =====
 
+function changeColor(){
 function changeColor() {
 
+document.body.style.background=
+"#"+Math.floor(Math.random()*16777215).toString(16);
     const color =
-        "#" +
-        Math.floor(Math.random() * 16777215)
-        .toString(16);
+        "#" + Math.floor(Math.random() * 16777215).toString(16);
 
     document.body.style.background = color;
 
@@ -305,19 +284,25 @@ function changeColor() {
 
 // ===== TROLLFACE =====
 
+function showTroll(){
+
+const img=document.getElementById("troll");
+
+if(img.style.display==="block"){
 function showTroll() {
 
-    const img =
-        document.getElementById("troll");
+img.style.display="none";
+    const img = document.getElementById("troll");
 
+}else{
+
+img.style.display="block";
+
+}
     if (img.style.display === "block") {
-
         img.style.display = "none";
-
     } else {
-
         img.style.display = "block";
-
     }
 
 }
@@ -325,122 +310,118 @@ function showTroll() {
 
 // ===== LOSOWE TEKSTY =====
 
+const texts=[
 const texts = [
 
 "🥚 Jajko wykryte!",
 
-"😂 Nie klikaj wszystkiego!",
-
-"😎 GitHub Pages > localhost",
-
-"🚀 Ta strona działa!",
+@@ -232,130 +305,376 @@ <h2>Jestem Karol</h2>
 
 "🔥 Ale kozacka strona!",
 
+"💀 DVD dalej lata...",
 "💀 DVD nadal lata...",
 
+"😆 Dzięki za odwiedziny!",
 "🎉 Miłego dnia!",
 
+"🎉 Miłego dnia!"
 "👋 Siema!"
 
 ];
 
+function randomText(){
+
+document.getElementById("random").innerHTML=
 function randomText() {
 
+texts[Math.floor(Math.random()*texts.length)];
     document.getElementById("random").textContent =
-
-        texts[
-            Math.floor(
-                Math.random() * texts.length
-            )
-        ];
+        texts[Math.floor(Math.random() * texts.length)];
 
 }
-
-
-// ===== DESZCZ JAJEK =====
+    // ===== DESZCZ JAJEK =====
 
 function eggRain() {
 
+// ===== DESZCZ JAJEK =====
+
+function eggRain(){
+
+for(let i=0;i<180;i++){
+
+const egg=document.createElement("div");
     for (let i = 0; i < 200; i++) {
 
-        const egg =
-            document.createElement("div");
+egg.className="jajko";
+        const egg = document.createElement("div");
 
+egg.innerHTML="🥚";
         egg.className = "jajko";
 
+egg.style.left=Math.random()*window.innerWidth+"px";
         egg.innerHTML = "🥚";
 
-        egg.style.left =
-            Math.random() *
-            window.innerWidth +
-            "px";
+egg.style.top=(-Math.random()*window.innerHeight)+"px";
+        egg.style.left = Math.random() * window.innerWidth + "px";
 
-        egg.style.top =
-            (-Math.random() *
-            window.innerHeight) +
-            "px";
+egg.style.opacity=0.3+Math.random()*0.7;
+        egg.style.top = (-Math.random() * window.innerHeight) + "px";
 
-        egg.style.fontSize =
-            (18 + Math.random() * 24) +
-            "px";
+egg.style.fontSize=(18+Math.random()*24)+"px";
+        egg.style.fontSize = (18 + Math.random() * 24) + "px";
 
-        egg.style.opacity =
-            0.25 +
-            Math.random() * 0.75;
+egg.style.animationDuration=(3+Math.random()*4)+"s";
+        egg.style.opacity = 0.25 + Math.random() * 0.75;
 
-        egg.style.animationDuration =
-            (3 + Math.random() * 4) +
-            "s";
+document.body.appendChild(egg);
+        egg.style.animationDuration = (3 + Math.random() * 4) + "s";
 
+setTimeout(()=>{
         document.body.appendChild(egg);
 
+egg.remove();
         setTimeout(() => {
-
             egg.remove();
-
         }, 7000);
 
+},7000);
     }
 
 }
 
+}
 
 // ===== DŹWIĘKI =====
 
+const sounds=[
+"sounds/dzwiek1.mp3",
+"sounds/dzwiek2.mp3",
+"sounds/dzwiek3.mp3"
+// W folderze sounds dodaj:
+// dzwiek1.mp3
+// dzwiek2.mp3
+// dzwiek3.mp3
+
 const soundFiles = [
-
     "sounds/dzwiek1.mp3",
-
     "sounds/dzwiek2.mp3",
-
     "sounds/dzwiek3.mp3"
-
 ];
 
-const sounds =
-    soundFiles.map(src => {
+// Wczytaj dźwięki po otwarciu strony
+const loadedSounds = sounds.map(src => {
+const sounds = soundFiles.map(src => {
+    const a = new Audio(src);
+    a.preload = "auto";
+    return a;
+});
 
-        const a =
-            new Audio(src);
-
-        a.preload = "auto";
-
-        return a;
-
-    });
-
-
+function playSound(){
 function playSound() {
 
     const sound =
-
-        sounds[
-            Math.floor(
-                Math.random() *
-                sounds.length
-            )
-        ];
+        sounds[Math.floor(Math.random() * sounds.length)];
 
     sound.currentTime = 0;
 
@@ -454,262 +435,178 @@ function playSound() {
 function reportBug() {
 
     window.location.href =
-
-        "mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
-
-}
-
-
-// ===== POBIERANIE PLUGINÓW =====
-
-function downloadPlugin(fileName) {
-
-    const link =
-        document.createElement("a");
-
-    link.href = "./" + fileName;
-
-    link.download = fileName;
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
+    "mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
 
 }
-
-
-// ===== DVD =====
+    // ===== DVD =====
 
 let dvdX = 120;
-
 let dvdY = 120;
 
 let dvdSpeedX = 3;
-
 let dvdSpeedY = 3;
 
-const dvd =
-    document.getElementById("dvd");
+const dvd = document.getElementById("dvd");
 
 setInterval(() => {
 
     dvdX += dvdSpeedX;
-
     dvdY += dvdSpeedY;
 
-    if (
-        dvdX <= 0 ||
-        dvdX >=
-        window.innerWidth -
-        dvd.offsetWidth
-    ) {
+const audio=loadedSounds[
+Math.floor(Math.random()*loadedSounds.length)
+    if (dvdX <= 0 || dvdX >= window.innerWidth - dvd.offsetWidth) {
 
         dvdSpeedX *= -1;
 
         dvd.style.background =
-
-            "#" +
-            Math.floor(
-                Math.random() *
-                16777215
-            ).toString(16);
+        "#" + Math.floor(Math.random() * 16777215).toString(16);
 
     }
 
-    if (
-        dvdY <= 0 ||
-        dvdY >=
-        window.innerHeight -
-        dvd.offsetHeight
-    ) {
+    if (dvdY <= 0 || dvdY >= window.innerHeight - dvd.offsetHeight) {
 
         dvdSpeedY *= -1;
 
         dvd.style.background =
-
-            "#" +
-            Math.floor(
-                Math.random() *
-                16777215
-            ).toString(16);
+        "#" + Math.floor(Math.random() * 16777215).toString(16);
 
     }
 
-    dvd.style.left =
-        dvdX + "px";
-
-    dvd.style.top =
-        dvdY + "px";
+    dvd.style.left = dvdX + "px";
+    dvd.style.top = dvdY + "px";
 
 }, 16);
 
 
 // ===== EFEKT PRZY KLIKNIĘCIU =====
 
-document.addEventListener(
-    "click",
-    (e) => {
+document.addEventListener("click", (e) => {
 
-        const spark =
-            document.createElement("div");
+    const spark = document.createElement("div");
 
-        spark.innerHTML = "✨";
+    spark.innerHTML = "✨";
 
-        spark.style.position =
-            "fixed";
+    spark.style.position = "fixed";
+    spark.style.left = e.clientX + "px";
+    spark.style.top = e.clientY + "px";
+    spark.style.fontSize = "24px";
+    spark.style.pointerEvents = "none";
+    spark.style.transition = "1s";
 
-        spark.style.left =
-            e.clientX + "px";
+    document.body.appendChild(spark);
 
-        spark.style.top =
-            e.clientY + "px";
+    setTimeout(() => {
 
-        spark.style.fontSize =
-            "24px";
+        spark.style.transform = "translateY(-60px)";
+        spark.style.opacity = "0";
 
-        spark.style.pointerEvents =
-            "none";
+    }, 10);
 
-        spark.style.transition =
-            "1s";
+    setTimeout(() => {
 
-        document.body.appendChild(spark);
+        spark.remove();
 
-        setTimeout(() => {
+    }, 1000);
 
-            spark.style.transform =
-                "translateY(-60px)";
-
-            spark.style.opacity = "0";
-
-        }, 10);
-
-        setTimeout(() => {
-
-            spark.remove();
-
-        }, 1000);
-
-    }
-);
+});
 
 
 // ===== POWITANIE =====
 
-console.log(
-    "👋 Siema! Witaj na stronie Karola!"
-);
-
-
-// ===== EASTER EGG =====
+console.log("👋 Siema! Witaj na stronie Karola!");
+    // ===== EASTER EGG =====
 
 let konami = [];
 
 const code = [
-
 "ArrowUp",
-
 "ArrowUp",
-
 "ArrowDown",
-
 "ArrowDown",
-
 "ArrowLeft",
-
 "ArrowRight",
-
 "ArrowLeft",
-
 "ArrowRight",
-
 "b",
-
 "a"
-
 ];
 
-document.addEventListener(
-    "keydown",
-    e => {
+audio.currentTime=0;
+audio.play();
+document.addEventListener("keydown", e=>{
 
-        konami.push(e.key);
+konami.push(e.key);
 
-        if (
-            konami.length >
-            code.length
-        ) {
+if(konami.length>code.length){
 
-            konami.shift();
+konami.shift();
 
-        }
+}
 
-        if (
-            JSON.stringify(konami) ===
-            JSON.stringify(code)
-        ) {
+if(JSON.stringify(konami)==JSON.stringify(code)){
 
-            alert(
-                "🥚 Easter Egg odblokowany!"
-            );
+alert("🥚 Easter Egg odblokowany!");
 
-            eggRain();
+eggRain();
 
-            document.body.style.background =
-                "gold";
+document.body.style.background="gold";
 
-            setTimeout(() => {
+// ===== PRZYCISK ZGŁOŚ BŁĄD =====
+setTimeout(()=>{
 
-                document.body.style.background =
-                    "#111";
+function reportBug(){
+document.body.style.background="#111";
 
-            }, 4000);
+window.location.href=
+"mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
+},4000);
 
-        }
+}
 
-    }
-);
+});
 
 
 // ===== SKRÓTY =====
 
-document.addEventListener(
-    "keydown",
-    e => {
+// ===== DVD =====
+document.addEventListener("keydown",e=>{
 
-        if (e.key === "t") {
+let x=100;
+let y=100;
+if(e.key==="t"){
 
-            showTroll();
+showTroll();
 
-        }
+}
 
-        if (e.key === "c") {
+let dx=3;
+let dy=3;
+if(e.key==="c"){
 
-            changeColor();
+changeColor();
 
-        }
+}
 
-        if (e.key === "j") {
+if(e.key==="j"){
 
-            eggRain();
+eggRain();
 
-        }
+}
 
-        if (e.key === "d") {
+if(e.key==="d"){
 
-            playSound();
+playSound();
 
-        }
+}
 
-    }
-);
+});
 
+const dvd=document.getElementById("dvd");
 
 // ===== LOSOWY MEM PO WEJŚCIU =====
 
-const welcomeMemes = [
+const welcomeMemes=[
 
 "😂 Miłego zwiedzania!",
 
@@ -723,23 +620,17 @@ const welcomeMemes = [
 
 ];
 
-setTimeout(() => {
+setTimeout(()=>{
 
-    document.getElementById("random").textContent =
+random.textContent=
+welcomeMemes[Math.floor(Math.random()*welcomeMemes.length)];
 
-        welcomeMemes[
-            Math.floor(
-                Math.random() *
-                welcomeMemes.length
-            )
-        ];
-
-}, 800);
+},800);
 
 
 // ===== MAŁA ANIMACJA TYTUŁU =====
 
-let titles = [
+let titles=[
 
 "😎 Strona Karola",
 
@@ -751,155 +642,112 @@ let titles = [
 
 ];
 
-let titleIndex = 0;
+let titleIndex=0;
 
-setInterval(() => {
+setInterval(()=>{
 
-    document.title =
-        titles[titleIndex];
+x+=dx;
+y+=dy;
+document.title=titles[titleIndex];
 
-    titleIndex++;
+if(x<=0||x>=window.innerWidth-70){
+titleIndex++;
 
-    if (
-        titleIndex >=
-        titles.length
-    ) {
+dx=-dx;
+if(titleIndex>=titles.length){
 
-        titleIndex = 0;
-
-    }
-
-}, 2000);
-
-
-// ===== GWIAZDKI W TLE =====
-
-function createStar() {
-
-    const star =
-        document.createElement("div");
-
-    star.innerHTML = "⭐";
-
-    star.style.position =
-        "fixed";
-
-    star.style.left =
-        Math.random() *
-        window.innerWidth +
-        "px";
-
-    star.style.top =
-        "-30px";
-
-    star.style.opacity =
-        Math.random();
-
-    star.style.pointerEvents =
-        "none";
-
-    star.style.fontSize =
-        (10 + Math.random() * 20) +
-        "px";
-
-    star.style.transition =
-        "8s linear";
-
-    document.body.appendChild(star);
-
-    setTimeout(() => {
-
-        star.style.top =
-            window.innerHeight +
-            30 +
-            "px";
-
-    }, 10);
-
-    setTimeout(() => {
-
-        star.remove();
-
-    }, 8000);
+dvd.style.background=
+"#"+Math.floor(Math.random()*16777215).toString(16);
+titleIndex=0;
 
 }
 
-setInterval(
-    createStar,
-    400
-);
+if(y<=0||y>=window.innerHeight-40){
+},2000);
+    // ===== GWIAZDKI W TLE =====
+
+function createStar(){
+
+    const star=document.createElement("div");
+
+    star.innerHTML="⭐";
+
+    star.style.position="fixed";
+    star.style.left=Math.random()*window.innerWidth+"px";
+    star.style.top="-30px";
+    star.style.opacity=Math.random();
+    star.style.pointerEvents="none";
+    star.style.fontSize=(10+Math.random()*20)+"px";
+    star.style.transition="8s linear";
+
+dy=-dy;
+    document.body.appendChild(star);
+
+dvd.style.background=
+"#"+Math.floor(Math.random()*16777215).toString(16);
+    setTimeout(()=>{
+
+        star.style.top=window.innerHeight+30+"px";
+
+    },10);
+
+    setTimeout(()=>{
+
+        star.remove();
+
+    },8000);
+
+}
+
+dvd.style.left=x+"px";
+dvd.style.top=y+"px";
+setInterval(createStar,400);
 
 
 // ===== KURSOR =====
 
-document.addEventListener(
-    "mousemove",
-    e => {
+document.addEventListener("mousemove",e=>{
 
-        const dot =
-            document.createElement("div");
+    const dot=document.createElement("div");
 
-        dot.style.position =
-            "fixed";
+    dot.style.position="fixed";
+    dot.style.left=e.clientX+"px";
+    dot.style.top=e.clientY+"px";
 
-        dot.style.left =
-            e.clientX + "px";
+    dot.style.width="8px";
+    dot.style.height="8px";
 
-        dot.style.top =
-            e.clientY + "px";
+    dot.style.borderRadius="50%";
 
-        dot.style.width =
-            "8px";
+    dot.style.background="white";
 
-        dot.style.height =
-            "8px";
+    dot.style.pointerEvents="none";
 
-        dot.style.borderRadius =
-            "50%";
+    dot.style.opacity="0.8";
 
-        dot.style.background =
-            "white";
+    dot.style.transition="0.8s";
 
-        dot.style.pointerEvents =
-            "none";
+    document.body.appendChild(dot);
 
-        dot.style.opacity =
-            "0.8";
+    setTimeout(()=>{
 
-        dot.style.transition =
-            "0.8s";
+        dot.style.opacity="0";
+        dot.style.transform="scale(3)";
 
-        document.body.appendChild(dot);
+    },10);
 
-        setTimeout(() => {
+    setTimeout(()=>{
 
-            dot.style.opacity =
-                "0";
+        dot.remove();
 
-            dot.style.transform =
-                "scale(3)";
+    },800);
 
-        }, 10);
-
-        setTimeout(() => {
-
-            dot.remove();
-
-        }, 800);
-
-    }
-);
+});
 
 
 // ===== KONIEC =====
 
-console.log(
-    "✅ Strona Karola została uruchomiona!"
-);
+},20);
+console.log("✅ Strona Karola została uruchomiona!");
 
 </script>
-
-</body>
-
-</html>
-```
