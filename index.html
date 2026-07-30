@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -226,6 +227,16 @@ To moja pierwsza strona internetowa!<br>
 
 <button onclick="reportBug()">🐞 Zgłoś błąd</button>
 
+<!-- ===== POBIERANIE PLUGINÓW ===== -->
+
+<button onclick="window.location.href='DiscordPlugin-1.19.4.jar'">
+📥 Pobierz DiscordPlugin
+</button>
+
+<button onclick="window.location.href='ZeusPlugin-1.19plus-popular.jar'">
+📥 Pobierz ZeusPlugin
+</button>
+
 </div>
 
 <p id="random"></p>
@@ -241,7 +252,8 @@ Made by Karol 😎
 </footer>
 
 <script>
-    // ===== ZEGAR =====
+
+// ===== ZEGAR =====
 
 function updateClock() {
     const now = new Date();
@@ -319,7 +331,9 @@ function randomText() {
         texts[Math.floor(Math.random() * texts.length)];
 
 }
-    // ===== DESZCZ JAJEK =====
+
+
+// ===== DESZCZ JAJEK =====
 
 function eggRain() {
 
@@ -391,7 +405,9 @@ function reportBug() {
     "mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
 
 }
-    // ===== DVD =====
+
+
+// ===== DVD =====
 
 let dvdX = 120;
 let dvdY = 120;
@@ -466,7 +482,9 @@ document.addEventListener("click", (e) => {
 // ===== POWITANIE =====
 
 console.log("👋 Siema! Witaj na stronie Karola!");
-    // ===== EASTER EGG =====
+
+
+// ===== EASTER EGG =====
 
 let konami = [];
 
@@ -483,7 +501,7 @@ const code = [
 "a"
 ];
 
-document.addEventListener("keydown", e=>{
+document.addEventListener("keydown",e=>{
 
 konami.push(e.key);
 
@@ -596,7 +614,9 @@ titleIndex=0;
 }
 
 },2000);
-    // ===== GWIAZDKI W TLE =====
+
+
+// ===== GWIAZDKI W TLE =====
 
 function createStar(){
 
@@ -680,3 +700,4 @@ console.log("✅ Strona Karola została uruchomiona!");
 
 </body>
 </html>
+```
