@@ -1,0 +1,703 @@
+```html
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Strona Karola 😎</title>
+
+<link rel="icon" href="favicon.ico">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:#101010;
+color:white;
+
+font-family:Arial,Helvetica,sans-serif;
+
+text-align:center;
+
+overflow-x:hidden;
+
+transition:background .4s;
+
+}
+
+header{
+
+background:#1c1c1c;
+
+padding:25px;
+
+box-shadow:0 0 20px black;
+
+}
+
+h1{
+
+font-size:45px;
+
+margin-bottom:10px;
+
+}
+
+h2{
+
+margin-bottom:10px;
+
+}
+
+p{
+
+font-size:20px;
+
+}
+
+#clock{
+
+font-size:30px;
+
+margin-top:20px;
+
+font-weight:bold;
+
+}
+
+.buttons{
+
+margin-top:30px;
+
+}
+
+button{
+
+padding:12px 18px;
+
+margin:8px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+button:hover{
+
+transform:scale(1.08);
+
+}
+
+#random{
+
+margin-top:25px;
+
+font-size:25px;
+
+font-weight:bold;
+
+}
+
+#troll{
+
+display:none;
+
+margin:25px auto;
+
+width:330px;
+
+max-width:90%;
+
+border-radius:20px;
+
+box-shadow:0 0 20px black;
+
+}
+
+#dvd{
+
+position:fixed;
+
+left:100px;
+
+top:100px;
+
+background:red;
+
+color:white;
+
+padding:10px;
+
+border-radius:10px;
+
+font-weight:bold;
+
+user-select:none;
+
+z-index:1000;
+
+}
+
+.jajko{
+
+position:fixed;
+
+pointer-events:none;
+
+animation:fall linear forwards;
+
+z-index:999;
+
+}
+
+@keyframes fall{
+
+0%{
+
+transform:translateY(-150px);
+
+}
+
+100%{
+
+transform:translateY(calc(100vh + 200px));
+
+}
+
+}
+
+footer{
+
+margin-top:70px;
+
+padding:30px;
+
+color:#999;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>👋 Siema!</h1>
+
+<h2>Jestem Karol 😎</h2>
+
+<p>
+To moja pierwsza strona internetowa!<br>
+(Nie z ESP32 i localhosta 😂)
+</p>
+
+<div id="clock">00:00:00</div>
+
+</header>
+
+<div class="buttons">
+
+<button onclick="changeColor()">🌈 Losowy kolor</button>
+
+<button onclick="eggRain()">🥚 Deszcz jajek</button>
+
+<button onclick="showTroll()">😂 Trollface</button>
+
+<button onclick="randomText()">🎲 Losowy tekst</button>
+
+<button onclick="playSound()">🔊 Puść dźwięk</button>
+
+<button onclick="reportBug()">🐞 Zgłoś błąd</button>
+
+<!-- ===== POBIERANIE PLUGINÓW ===== -->
+
+<button onclick="window.location.href='DiscordPlugin-1.19.4.jar'">
+📥 Pobierz DiscordPlugin
+</button>
+
+<button onclick="window.location.href='ZeusPlugin-1.19plus-popular.jar'">
+📥 Pobierz ZeusPlugin
+</button>
+
+</div>
+
+<p id="random"></p>
+
+<img id="troll" src="trollface.png" alt="Trollface">
+
+<div id="dvd">DVD</div>
+
+<footer>
+
+Made by Karol 😎
+
+</footer>
+
+<script>
+
+// ===== ZEGAR =====
+
+function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString("pl-PL");
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+
+// ===== LICZNIK ODWIEDZIN =====
+
+let visits = Number(localStorage.getItem("visits") || 0);
+visits++;
+localStorage.setItem("visits", visits);
+
+const visitText = document.createElement("p");
+visitText.innerHTML = "👀 Odwiedziłeś tę stronę <b>" + visits + "</b> razy na tym urządzeniu.";
+document.querySelector("header").appendChild(visitText);
+
+
+// ===== LOSOWY KOLOR =====
+
+function changeColor() {
+
+    const color =
+        "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+    document.body.style.background = color;
+
+}
+
+
+// ===== TROLLFACE =====
+
+function showTroll() {
+
+    const img = document.getElementById("troll");
+
+    if (img.style.display === "block") {
+        img.style.display = "none";
+    } else {
+        img.style.display = "block";
+    }
+
+}
+
+
+// ===== LOSOWE TEKSTY =====
+
+const texts = [
+
+"🥚 Jajko wykryte!",
+
+"😂 Nie klikaj wszystkiego!",
+
+"😎 GitHub Pages > localhost",
+
+"🚀 Ta strona działa!",
+
+"🔥 Ale kozacka strona!",
+
+"💀 DVD nadal lata...",
+
+"🎉 Miłego dnia!",
+
+"👋 Siema!"
+
+];
+
+function randomText() {
+
+    document.getElementById("random").textContent =
+        texts[Math.floor(Math.random() * texts.length)];
+
+}
+
+
+// ===== DESZCZ JAJEK =====
+
+function eggRain() {
+
+    for (let i = 0; i < 200; i++) {
+
+        const egg = document.createElement("div");
+
+        egg.className = "jajko";
+
+        egg.innerHTML = "🥚";
+
+        egg.style.left = Math.random() * window.innerWidth + "px";
+
+        egg.style.top = (-Math.random() * window.innerHeight) + "px";
+
+        egg.style.fontSize = (18 + Math.random() * 24) + "px";
+
+        egg.style.opacity = 0.25 + Math.random() * 0.75;
+
+        egg.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+        document.body.appendChild(egg);
+
+        setTimeout(() => {
+            egg.remove();
+        }, 7000);
+
+    }
+
+}
+
+
+// ===== DŹWIĘKI =====
+
+// W folderze sounds dodaj:
+// dzwiek1.mp3
+// dzwiek2.mp3
+// dzwiek3.mp3
+
+const soundFiles = [
+    "sounds/dzwiek1.mp3",
+    "sounds/dzwiek2.mp3",
+    "sounds/dzwiek3.mp3"
+];
+
+const sounds = soundFiles.map(src => {
+    const a = new Audio(src);
+    a.preload = "auto";
+    return a;
+});
+
+function playSound() {
+
+    const sound =
+        sounds[Math.floor(Math.random() * sounds.length)];
+
+    sound.currentTime = 0;
+
+    sound.play();
+
+}
+
+
+// ===== ZGŁOŚ BŁĄD =====
+
+function reportBug() {
+
+    window.location.href =
+    "mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
+
+}
+
+
+// ===== DVD =====
+
+let dvdX = 120;
+let dvdY = 120;
+
+let dvdSpeedX = 3;
+let dvdSpeedY = 3;
+
+const dvd = document.getElementById("dvd");
+
+setInterval(() => {
+
+    dvdX += dvdSpeedX;
+    dvdY += dvdSpeedY;
+
+    if (dvdX <= 0 || dvdX >= window.innerWidth - dvd.offsetWidth) {
+
+        dvdSpeedX *= -1;
+
+        dvd.style.background =
+        "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+    }
+
+    if (dvdY <= 0 || dvdY >= window.innerHeight - dvd.offsetHeight) {
+
+        dvdSpeedY *= -1;
+
+        dvd.style.background =
+        "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+    }
+
+    dvd.style.left = dvdX + "px";
+    dvd.style.top = dvdY + "px";
+
+}, 16);
+
+
+// ===== EFEKT PRZY KLIKNIĘCIU =====
+
+document.addEventListener("click", (e) => {
+
+    const spark = document.createElement("div");
+
+    spark.innerHTML = "✨";
+
+    spark.style.position = "fixed";
+    spark.style.left = e.clientX + "px";
+    spark.style.top = e.clientY + "px";
+    spark.style.fontSize = "24px";
+    spark.style.pointerEvents = "none";
+    spark.style.transition = "1s";
+
+    document.body.appendChild(spark);
+
+    setTimeout(() => {
+
+        spark.style.transform = "translateY(-60px)";
+        spark.style.opacity = "0";
+
+    }, 10);
+
+    setTimeout(() => {
+
+        spark.remove();
+
+    }, 1000);
+
+});
+
+
+// ===== POWITANIE =====
+
+console.log("👋 Siema! Witaj na stronie Karola!");
+
+
+// ===== EASTER EGG =====
+
+let konami = [];
+
+const code = [
+"ArrowUp",
+"ArrowUp",
+"ArrowDown",
+"ArrowDown",
+"ArrowLeft",
+"ArrowRight",
+"ArrowLeft",
+"ArrowRight",
+"b",
+"a"
+];
+
+document.addEventListener("keydown",e=>{
+
+konami.push(e.key);
+
+if(konami.length>code.length){
+
+konami.shift();
+
+}
+
+if(JSON.stringify(konami)==JSON.stringify(code)){
+
+alert("🥚 Easter Egg odblokowany!");
+
+eggRain();
+
+document.body.style.background="gold";
+
+setTimeout(()=>{
+
+document.body.style.background="#111";
+
+},4000);
+
+}
+
+});
+
+
+// ===== SKRÓTY =====
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="t"){
+
+showTroll();
+
+}
+
+if(e.key==="c"){
+
+changeColor();
+
+}
+
+if(e.key==="j"){
+
+eggRain();
+
+}
+
+if(e.key==="d"){
+
+playSound();
+
+}
+
+});
+
+
+// ===== LOSOWY MEM PO WEJŚCIU =====
+
+const welcomeMemes=[
+
+"😂 Miłego zwiedzania!",
+
+"🥚 Jajko pozdrawia!",
+
+"🚀 Strona załadowana!",
+
+"😎 Witaj na najlepszej stronie!",
+
+"💀 Uważaj na DVD..."
+
+];
+
+setTimeout(()=>{
+
+random.textContent=
+welcomeMemes[Math.floor(Math.random()*welcomeMemes.length)];
+
+},800);
+
+
+// ===== MAŁA ANIMACJA TYTUŁU =====
+
+let titles=[
+
+"😎 Strona Karola",
+
+"🥚 Jajko",
+
+"😂 Trollface",
+
+"🚀 GitHub Pages"
+
+];
+
+let titleIndex=0;
+
+setInterval(()=>{
+
+document.title=titles[titleIndex];
+
+titleIndex++;
+
+if(titleIndex>=titles.length){
+
+titleIndex=0;
+
+}
+
+},2000);
+
+
+// ===== GWIAZDKI W TLE =====
+
+function createStar(){
+
+    const star=document.createElement("div");
+
+    star.innerHTML="⭐";
+
+    star.style.position="fixed";
+    star.style.left=Math.random()*window.innerWidth+"px";
+    star.style.top="-30px";
+    star.style.opacity=Math.random();
+    star.style.pointerEvents="none";
+    star.style.fontSize=(10+Math.random()*20)+"px";
+    star.style.transition="8s linear";
+
+    document.body.appendChild(star);
+
+    setTimeout(()=>{
+
+        star.style.top=window.innerHeight+30+"px";
+
+    },10);
+
+    setTimeout(()=>{
+
+        star.remove();
+
+    },8000);
+
+}
+
+setInterval(createStar,400);
+
+
+// ===== KURSOR =====
+
+document.addEventListener("mousemove",e=>{
+
+    const dot=document.createElement("div");
+
+    dot.style.position="fixed";
+    dot.style.left=e.clientX+"px";
+    dot.style.top=e.clientY+"px";
+
+    dot.style.width="8px";
+    dot.style.height="8px";
+
+    dot.style.borderRadius="50%";
+
+    dot.style.background="white";
+
+    dot.style.pointerEvents="none";
+
+    dot.style.opacity="0.8";
+
+    dot.style.transition="0.8s";
+
+    document.body.appendChild(dot);
+
+    setTimeout(()=>{
+
+        dot.style.opacity="0";
+        dot.style.transform="scale(3)";
+
+    },10);
+
+    setTimeout(()=>{
+
+        dot.remove();
+
+    },800);
+
+});
+
+
+// ===== KONIEC =====
+
+console.log("✅ Strona Karola została uruchomiona!");
+
+</script>
+
+</body>
+</html>
+```
