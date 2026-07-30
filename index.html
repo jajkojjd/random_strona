@@ -9,7 +9,9 @@
 
 <title>Strona Karola 😎</title>
 
-<link rel="icon" href="favicon.ico">
+<!-- FAVICON -->
+<link rel="icon" type="image/x-icon" href="./favicon.ico?v=2">
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?v=2">
 
 <style>
 
@@ -229,11 +231,11 @@ To moja pierwsza strona internetowa!<br>
 
 <!-- ===== POBIERANIE PLUGINÓW ===== -->
 
-<button onclick="window.location.href='DiscordPlugin-1.19.4.jar'">
+<button onclick="downloadPlugin('DiscordPlugin-1.19.4.jar')">
 📥 Pobierz DiscordPlugin
 </button>
 
-<button onclick="window.location.href='ZeusPlugin-1.19plus-popular.jar'">
+<button onclick="downloadPlugin('ZeusPlugin-1.19plus-popular.jar')">
 📥 Pobierz ZeusPlugin
 </button>
 
@@ -256,23 +258,34 @@ Made by Karol 😎
 // ===== ZEGAR =====
 
 function updateClock() {
+
     const now = new Date();
+
     document.getElementById("clock").textContent =
         now.toLocaleTimeString("pl-PL");
+
 }
 
 setInterval(updateClock, 1000);
+
 updateClock();
 
 
 // ===== LICZNIK ODWIEDZIN =====
 
 let visits = Number(localStorage.getItem("visits") || 0);
+
 visits++;
+
 localStorage.setItem("visits", visits);
 
 const visitText = document.createElement("p");
-visitText.innerHTML = "👀 Odwiedziłeś tę stronę <b>" + visits + "</b> razy na tym urządzeniu.";
+
+visitText.innerHTML =
+    "👀 Odwiedziłeś tę stronę <b>" +
+    visits +
+    "</b> razy na tym urządzeniu.";
+
 document.querySelector("header").appendChild(visitText);
 
 
@@ -281,7 +294,9 @@ document.querySelector("header").appendChild(visitText);
 function changeColor() {
 
     const color =
-        "#" + Math.floor(Math.random() * 16777215).toString(16);
+        "#" +
+        Math.floor(Math.random() * 16777215)
+        .toString(16);
 
     document.body.style.background = color;
 
@@ -292,12 +307,17 @@ function changeColor() {
 
 function showTroll() {
 
-    const img = document.getElementById("troll");
+    const img =
+        document.getElementById("troll");
 
     if (img.style.display === "block") {
+
         img.style.display = "none";
+
     } else {
+
         img.style.display = "block";
+
     }
 
 }
@@ -328,7 +348,12 @@ const texts = [
 function randomText() {
 
     document.getElementById("random").textContent =
-        texts[Math.floor(Math.random() * texts.length)];
+
+        texts[
+            Math.floor(
+                Math.random() * texts.length
+            )
+        ];
 
 }
 
@@ -339,26 +364,41 @@ function eggRain() {
 
     for (let i = 0; i < 200; i++) {
 
-        const egg = document.createElement("div");
+        const egg =
+            document.createElement("div");
 
         egg.className = "jajko";
 
         egg.innerHTML = "🥚";
 
-        egg.style.left = Math.random() * window.innerWidth + "px";
+        egg.style.left =
+            Math.random() *
+            window.innerWidth +
+            "px";
 
-        egg.style.top = (-Math.random() * window.innerHeight) + "px";
+        egg.style.top =
+            (-Math.random() *
+            window.innerHeight) +
+            "px";
 
-        egg.style.fontSize = (18 + Math.random() * 24) + "px";
+        egg.style.fontSize =
+            (18 + Math.random() * 24) +
+            "px";
 
-        egg.style.opacity = 0.25 + Math.random() * 0.75;
+        egg.style.opacity =
+            0.25 +
+            Math.random() * 0.75;
 
-        egg.style.animationDuration = (3 + Math.random() * 4) + "s";
+        egg.style.animationDuration =
+            (3 + Math.random() * 4) +
+            "s";
 
         document.body.appendChild(egg);
 
         setTimeout(() => {
+
             egg.remove();
+
         }, 7000);
 
     }
@@ -368,27 +408,39 @@ function eggRain() {
 
 // ===== DŹWIĘKI =====
 
-// W folderze sounds dodaj:
-// dzwiek1.mp3
-// dzwiek2.mp3
-// dzwiek3.mp3
-
 const soundFiles = [
+
     "sounds/dzwiek1.mp3",
+
     "sounds/dzwiek2.mp3",
+
     "sounds/dzwiek3.mp3"
+
 ];
 
-const sounds = soundFiles.map(src => {
-    const a = new Audio(src);
-    a.preload = "auto";
-    return a;
-});
+const sounds =
+    soundFiles.map(src => {
+
+        const a =
+            new Audio(src);
+
+        a.preload = "auto";
+
+        return a;
+
+    });
+
 
 function playSound() {
 
     const sound =
-        sounds[Math.floor(Math.random() * sounds.length)];
+
+        sounds[
+            Math.floor(
+                Math.random() *
+                sounds.length
+            )
+        ];
 
     sound.currentTime = 0;
 
@@ -402,7 +454,28 @@ function playSound() {
 function reportBug() {
 
     window.location.href =
-    "mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
+
+        "mailto:nielubimyslavko@gmail.com?subject=Zgłoszenie%20błędu";
+
+}
+
+
+// ===== POBIERANIE PLUGINÓW =====
+
+function downloadPlugin(fileName) {
+
+    const link =
+        document.createElement("a");
+
+    link.href = "./" + fileName;
+
+    link.download = fileName;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
 
 }
 
@@ -410,78 +483,124 @@ function reportBug() {
 // ===== DVD =====
 
 let dvdX = 120;
+
 let dvdY = 120;
 
 let dvdSpeedX = 3;
+
 let dvdSpeedY = 3;
 
-const dvd = document.getElementById("dvd");
+const dvd =
+    document.getElementById("dvd");
 
 setInterval(() => {
 
     dvdX += dvdSpeedX;
+
     dvdY += dvdSpeedY;
 
-    if (dvdX <= 0 || dvdX >= window.innerWidth - dvd.offsetWidth) {
+    if (
+        dvdX <= 0 ||
+        dvdX >=
+        window.innerWidth -
+        dvd.offsetWidth
+    ) {
 
         dvdSpeedX *= -1;
 
         dvd.style.background =
-        "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+            "#" +
+            Math.floor(
+                Math.random() *
+                16777215
+            ).toString(16);
 
     }
 
-    if (dvdY <= 0 || dvdY >= window.innerHeight - dvd.offsetHeight) {
+    if (
+        dvdY <= 0 ||
+        dvdY >=
+        window.innerHeight -
+        dvd.offsetHeight
+    ) {
 
         dvdSpeedY *= -1;
 
         dvd.style.background =
-        "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+            "#" +
+            Math.floor(
+                Math.random() *
+                16777215
+            ).toString(16);
 
     }
 
-    dvd.style.left = dvdX + "px";
-    dvd.style.top = dvdY + "px";
+    dvd.style.left =
+        dvdX + "px";
+
+    dvd.style.top =
+        dvdY + "px";
 
 }, 16);
 
 
 // ===== EFEKT PRZY KLIKNIĘCIU =====
 
-document.addEventListener("click", (e) => {
+document.addEventListener(
+    "click",
+    (e) => {
 
-    const spark = document.createElement("div");
+        const spark =
+            document.createElement("div");
 
-    spark.innerHTML = "✨";
+        spark.innerHTML = "✨";
 
-    spark.style.position = "fixed";
-    spark.style.left = e.clientX + "px";
-    spark.style.top = e.clientY + "px";
-    spark.style.fontSize = "24px";
-    spark.style.pointerEvents = "none";
-    spark.style.transition = "1s";
+        spark.style.position =
+            "fixed";
 
-    document.body.appendChild(spark);
+        spark.style.left =
+            e.clientX + "px";
 
-    setTimeout(() => {
+        spark.style.top =
+            e.clientY + "px";
 
-        spark.style.transform = "translateY(-60px)";
-        spark.style.opacity = "0";
+        spark.style.fontSize =
+            "24px";
 
-    }, 10);
+        spark.style.pointerEvents =
+            "none";
 
-    setTimeout(() => {
+        spark.style.transition =
+            "1s";
 
-        spark.remove();
+        document.body.appendChild(spark);
 
-    }, 1000);
+        setTimeout(() => {
 
-});
+            spark.style.transform =
+                "translateY(-60px)";
+
+            spark.style.opacity = "0";
+
+        }, 10);
+
+        setTimeout(() => {
+
+            spark.remove();
+
+        }, 1000);
+
+    }
+);
 
 
 // ===== POWITANIE =====
 
-console.log("👋 Siema! Witaj na stronie Karola!");
+console.log(
+    "👋 Siema! Witaj na stronie Karola!"
+);
 
 
 // ===== EASTER EGG =====
@@ -489,81 +608,108 @@ console.log("👋 Siema! Witaj na stronie Karola!");
 let konami = [];
 
 const code = [
+
 "ArrowUp",
+
 "ArrowUp",
+
 "ArrowDown",
+
 "ArrowDown",
+
 "ArrowLeft",
+
 "ArrowRight",
+
 "ArrowLeft",
+
 "ArrowRight",
+
 "b",
+
 "a"
+
 ];
 
-document.addEventListener("keydown",e=>{
+document.addEventListener(
+    "keydown",
+    e => {
 
-konami.push(e.key);
+        konami.push(e.key);
 
-if(konami.length>code.length){
+        if (
+            konami.length >
+            code.length
+        ) {
 
-konami.shift();
+            konami.shift();
 
-}
+        }
 
-if(JSON.stringify(konami)==JSON.stringify(code)){
+        if (
+            JSON.stringify(konami) ===
+            JSON.stringify(code)
+        ) {
 
-alert("🥚 Easter Egg odblokowany!");
+            alert(
+                "🥚 Easter Egg odblokowany!"
+            );
 
-eggRain();
+            eggRain();
 
-document.body.style.background="gold";
+            document.body.style.background =
+                "gold";
 
-setTimeout(()=>{
+            setTimeout(() => {
 
-document.body.style.background="#111";
+                document.body.style.background =
+                    "#111";
 
-},4000);
+            }, 4000);
 
-}
+        }
 
-});
+    }
+);
 
 
 // ===== SKRÓTY =====
 
-document.addEventListener("keydown",e=>{
+document.addEventListener(
+    "keydown",
+    e => {
 
-if(e.key==="t"){
+        if (e.key === "t") {
 
-showTroll();
+            showTroll();
 
-}
+        }
 
-if(e.key==="c"){
+        if (e.key === "c") {
 
-changeColor();
+            changeColor();
 
-}
+        }
 
-if(e.key==="j"){
+        if (e.key === "j") {
 
-eggRain();
+            eggRain();
 
-}
+        }
 
-if(e.key==="d"){
+        if (e.key === "d") {
 
-playSound();
+            playSound();
 
-}
+        }
 
-});
+    }
+);
 
 
 // ===== LOSOWY MEM PO WEJŚCIU =====
 
-const welcomeMemes=[
+const welcomeMemes = [
 
 "😂 Miłego zwiedzania!",
 
@@ -577,17 +723,23 @@ const welcomeMemes=[
 
 ];
 
-setTimeout(()=>{
+setTimeout(() => {
 
-random.textContent=
-welcomeMemes[Math.floor(Math.random()*welcomeMemes.length)];
+    document.getElementById("random").textContent =
 
-},800);
+        welcomeMemes[
+            Math.floor(
+                Math.random() *
+                welcomeMemes.length
+            )
+        ];
+
+}, 800);
 
 
 // ===== MAŁA ANIMACJA TYTUŁU =====
 
-let titles=[
+let titles = [
 
 "😎 Strona Karola",
 
@@ -599,105 +751,155 @@ let titles=[
 
 ];
 
-let titleIndex=0;
+let titleIndex = 0;
 
-setInterval(()=>{
+setInterval(() => {
 
-document.title=titles[titleIndex];
+    document.title =
+        titles[titleIndex];
 
-titleIndex++;
+    titleIndex++;
 
-if(titleIndex>=titles.length){
+    if (
+        titleIndex >=
+        titles.length
+    ) {
 
-titleIndex=0;
+        titleIndex = 0;
 
-}
+    }
 
-},2000);
+}, 2000);
 
 
 // ===== GWIAZDKI W TLE =====
 
-function createStar(){
+function createStar() {
 
-    const star=document.createElement("div");
+    const star =
+        document.createElement("div");
 
-    star.innerHTML="⭐";
+    star.innerHTML = "⭐";
 
-    star.style.position="fixed";
-    star.style.left=Math.random()*window.innerWidth+"px";
-    star.style.top="-30px";
-    star.style.opacity=Math.random();
-    star.style.pointerEvents="none";
-    star.style.fontSize=(10+Math.random()*20)+"px";
-    star.style.transition="8s linear";
+    star.style.position =
+        "fixed";
+
+    star.style.left =
+        Math.random() *
+        window.innerWidth +
+        "px";
+
+    star.style.top =
+        "-30px";
+
+    star.style.opacity =
+        Math.random();
+
+    star.style.pointerEvents =
+        "none";
+
+    star.style.fontSize =
+        (10 + Math.random() * 20) +
+        "px";
+
+    star.style.transition =
+        "8s linear";
 
     document.body.appendChild(star);
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
-        star.style.top=window.innerHeight+30+"px";
+        star.style.top =
+            window.innerHeight +
+            30 +
+            "px";
 
-    },10);
+    }, 10);
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         star.remove();
 
-    },8000);
+    }, 8000);
 
 }
 
-setInterval(createStar,400);
+setInterval(
+    createStar,
+    400
+);
 
 
 // ===== KURSOR =====
 
-document.addEventListener("mousemove",e=>{
+document.addEventListener(
+    "mousemove",
+    e => {
 
-    const dot=document.createElement("div");
+        const dot =
+            document.createElement("div");
 
-    dot.style.position="fixed";
-    dot.style.left=e.clientX+"px";
-    dot.style.top=e.clientY+"px";
+        dot.style.position =
+            "fixed";
 
-    dot.style.width="8px";
-    dot.style.height="8px";
+        dot.style.left =
+            e.clientX + "px";
 
-    dot.style.borderRadius="50%";
+        dot.style.top =
+            e.clientY + "px";
 
-    dot.style.background="white";
+        dot.style.width =
+            "8px";
 
-    dot.style.pointerEvents="none";
+        dot.style.height =
+            "8px";
 
-    dot.style.opacity="0.8";
+        dot.style.borderRadius =
+            "50%";
 
-    dot.style.transition="0.8s";
+        dot.style.background =
+            "white";
 
-    document.body.appendChild(dot);
+        dot.style.pointerEvents =
+            "none";
 
-    setTimeout(()=>{
+        dot.style.opacity =
+            "0.8";
 
-        dot.style.opacity="0";
-        dot.style.transform="scale(3)";
+        dot.style.transition =
+            "0.8s";
 
-    },10);
+        document.body.appendChild(dot);
 
-    setTimeout(()=>{
+        setTimeout(() => {
 
-        dot.remove();
+            dot.style.opacity =
+                "0";
 
-    },800);
+            dot.style.transform =
+                "scale(3)";
 
-});
+        }, 10);
+
+        setTimeout(() => {
+
+            dot.remove();
+
+        }, 800);
+
+    }
+);
 
 
 // ===== KONIEC =====
 
-console.log("✅ Strona Karola została uruchomiona!");
+console.log(
+    "✅ Strona Karola została uruchomiona!"
+);
 
 </script>
 
 </body>
+
 </html>
 ```
